@@ -1,4 +1,4 @@
-package br.com.iti.validadordesenha.compartilhado.hendlers
+package br.com.iti.validadordesenha.compartilhado.handlers
 
 import org.springframework.context.MessageSource
 import org.springframework.context.i18n.LocaleContextHolder

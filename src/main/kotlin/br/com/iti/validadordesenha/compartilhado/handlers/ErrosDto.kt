@@ -1,4 +1,4 @@
-package br.com.iti.validadordesenha.compartilhado.hendlers
+package br.com.iti.validadordesenha.compartilhado.handlers
 
 data class ErrosDto(
     val field: String?,
