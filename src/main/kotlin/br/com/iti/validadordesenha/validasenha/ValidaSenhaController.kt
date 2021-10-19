@@ -9,12 +9,14 @@ import javax.validation.Valid
 
 @RestController
 @RequestMapping("/api/v1/valida-senha")
-class ValidaSenhaController {
+class ValidaSenhaController(val validaSenhaService: ValidaSenhaService) {
 
 
     @PostMapping
-    fun valida(@Valid @RequestBody validaSenhaRequest: ValidaSenhaRequest): ResponseEntity<Boolean> {
+    fun valida(@Valid @RequestBody validaSenhaRequest: ValidaSenhaRequest): ResponseEntity<ValidaSenhaResponse> {
+        val senhaValidada = validaSenhaService.valida(validaSenhaRequest.senha)
+        if (!senhaValidada.isValid) return ResponseEntity.badRequest().body(senhaValidada)
 
-        return ResponseEntity.ok(true)
+        return ResponseEntity.ok(senhaValidada)
     }
 }
