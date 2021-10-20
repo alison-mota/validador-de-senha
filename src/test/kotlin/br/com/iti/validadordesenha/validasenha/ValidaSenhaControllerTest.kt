@@ -35,7 +35,7 @@ internal class ValidaSenhaControllerTest(@Autowired val mockMvc: MockMvc) {
     }
 
     @Test
-    internal fun `deve retornar 400 quando a senha for em branco`() {
+    internal fun `deve retornar 400 quando a senha for em branco ou nula`() {
         val senha: ValidaSenhaRequest = ValidaSenhaRequest("")
 
         mockMvc.perform(

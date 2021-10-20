@@ -18,17 +18,17 @@ class ValidaSenhaService {
         Dto(letraMaiuscula, "É preciso ter uma letra maiuscula"),
         Dto(caractereNumerico, "É preciso ter um caractere numérico"),
         Dto(caractereEspecial, "É preciso ter um caractere especial: !@#$%^&*()-+"),
-        Dto(noveCaracteres, "A senha precisa ter no mínimo 9 caracteres."),
+        Dto(noveCaracteres, "A senha precisa ter no mínimo 9 caracteres"),
     )
 
-    fun valida(senha: String): ValidaSenhaResponse {
+    fun valida(senha: String): Response {
 
         validador.map {
-            val valida = senha.matches(it.regex)
-            if (!valida)
-                return ValidaSenhaResponse(valida, it.mensagem)
+            val validado = senha.matches(it.regex)
+            if (!validado)
+                return SenhaInvalidaResponse(validado, it.mensagem)
         }
-        return ValidaSenhaResponse(true, "Senha válida.")
+        return SenhaValidaResponse(true)
     }
 }
 

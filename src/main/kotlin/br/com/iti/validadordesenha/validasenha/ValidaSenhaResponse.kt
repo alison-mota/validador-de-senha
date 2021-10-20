@@ -1,12 +1,14 @@
 package br.com.iti.validadordesenha.validasenha
 
-data class ValidaSenhaResponse(
-    val isValid: Boolean,
-
-){
-    var mensagem: String? = null
-
-    constructor(isValid: Boolean, mensagem: String): this(isValid){
-        this.mensagem = mensagem
-    }
+abstract class Response{
+    abstract val isValid: Boolean
 }
+
+data class SenhaInvalidaResponse(
+    override val isValid: Boolean,
+    var mensagem: String
+    ): Response()
+
+data class SenhaValidaResponse(
+    override val isValid: Boolean,
+): Response()
