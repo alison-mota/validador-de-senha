@@ -1,14 +1,16 @@
 package br.com.iti.validadordesenha.validasenha
 
-abstract class Response{
-    abstract val isValid: Boolean
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
+
+@JsonInclude(NON_NULL)
+data class ValidaSenhaResponse(
+    val isValid: Boolean
+    ) {
+
+    var mensagem: String? = null
+
+    constructor(isValid: Boolean, mensagem: String): this(isValid){
+        this.mensagem = mensagem
+    }
 }
-
-data class SenhaInvalidaResponse(
-    override val isValid: Boolean,
-    var mensagem: String
-    ): Response()
-
-data class SenhaValidaResponse(
-    override val isValid: Boolean,
-): Response()
