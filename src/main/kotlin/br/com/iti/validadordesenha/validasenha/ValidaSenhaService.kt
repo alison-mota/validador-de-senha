@@ -3,6 +3,10 @@ package br.com.iti.validadordesenha.validasenha
 import br.com.iti.validadordesenha.compartilhado.constantes.RegexEMensagens
 import org.springframework.stereotype.Service
 
+/*
+  Ler o arquivo README para consultar as regras de senha válida
+ */
+
 @Service
 class ValidaSenhaService {
 

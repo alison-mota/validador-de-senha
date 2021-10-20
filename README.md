@@ -15,10 +15,10 @@ Considere uma senha sendo válida quando a mesma possuir as seguintes definiçõ
 - Ao menos 1 letra minúscula
 - Ao menos 1 letra maiúscula
 - Ao menos 1 caractere especial
-    - Considere como especial os seguintes caracteres: !@#$%^&*()-+
+    - Considere os seguintes caracteres: !@#$%^&*()-+
 - Não possuir caracteres repetidos dentro do conjunto
 
-Exemplo:
+Exemplos:
 
 ```c#
 IsValid("") -> false  
@@ -37,19 +37,11 @@ IsValid("AbTp9!fok") -> true
 
 # Rodando a aplicação
 
-- Baixe o código e rode a aplicação a partir da classe *ValidadorDeSenhaApplication.kt*
-- Crie uma requisição do tipo Post *(usando Postman ou Insomnia)* para localhost:8080/api/v1/valida-senha
+- Faça um clone do repositório ou baixe os arquivos e abra em uma IDE;
+- Rode a aplicação a partir da classe *ValidadorDeSenhaApplication.kt*
+- Crie uma requisição do tipo Post *(usando Postman, Insomnia ou swagger)* para localhost:8080/api/v1/valida-senha
 - Envie um json conforme o exemplo:
   - { "senha"= "insira_a_senha" }
-
-### Input:
-- Método: Post
-- Um json com uma senha válida (string).
-
-### Output:
-- Um json com as informações:
-  - Um boolean indicando se a senha é válida.
-  - Uma mensagem indicando o problema *(se houver)*
 
 ### Exemplo de senha inválida:
 - Input: 
@@ -61,6 +53,7 @@ IsValid("AbTp9!fok") -> true
 
 - Output:
 ```c#
+  Status: 400 bad request
   {
   "isValid": false,
   "mensagem": "É preciso ter um caractere numérico"
@@ -75,49 +68,37 @@ IsValid("AbTp9!fok") -> true
   }
 ```
 
-- Output:
+- Output:  
 ```c#
+  Status: 200 ok
+  
   {
     "isValid": true
   }
 ```
 
+### Consultando o Swagger
+- Essa aplicação conta com a documentação do swagger.
+- Para usar:
+  - Suba a aplicação; 
+  - Acesse através do link http://localhost:8080/swagger-ui.html
+
 -------------------------------
 
 # Caminho cognitivo
+
+## Sobre o código
+- Vejo que é mais fácil entender o código quando as classes são organizadas por feature.
+- Optei por usar Regex para validar os dados. Vejo que assim o código fica mais escalável e de fácil entendimento.
+- Decidi organizar as variáveis *(Regex e as mensagens de erro)* em uma classe separada, pois caso as regras de negócio mudem, podemos alterar somente essa classe.
+
 ## Sobre o retorno
-Optei por devolver a resposta em um json, usando um data class do Kotlin.  
-Preferi dessa forma, pois como existem diversas regras para validação da senha fica mais fácil para quem for consumir a API, e caso receba algum erro, saber em tempo real o que precisa ser corrigido na requisição.   
-Outro benefício por usar este DTO é o de não devolver dados sensíveis ao cliente.
+- Optei por devolver a resposta em um json, usando um data class do Kotlin.  
+  - Além do boolean que foi pedido, inseri também um atributo com uma String *(mensagem)* de erro, se houver falha.
+  - Se não houver falha, devolvo somente um json com isValid=true *(sem mensagem de erro para não ter redundância)*.
+  - Preferi dessa forma, pois como existem diversas regras para validação da senha fica mais fácil para quem for consumir a API, e caso receba algum erro, saber em tempo real o que precisa ser corrigido na requisição.
+  - Outro benefício por usar este DTO é o de não devolver dados sensíveis ao cliente.
 
-## Sobre a organização do código
-Vejo que é mais fácil entender o código quando as classes são organizadas por feature
+## Sobre os testes
+- Optei por fazer testes unitários e testes de integração para poder cobrir a maior quantidade de falhas possível.
 
-
-
-
-
-
-
-
-
-
-
-
-### Sobre a documentação
-
-Nesta etapa do processo seletivo queremos entender as decisões por trás do código, portanto é fundamental que o *README* tenha algumas informações referentes a sua solução.
-
-Algumas dicas do que esperamos ver são:
-
-- Instruções básicas de como executar o projeto;
-- Detalhes sobre a sua solução, gostariamos de saber qual foi seu racional nas decisões;
-- Caso algo não esteja claro e você precisou assumir alguma premissa, quais foram e o que te motivou a tomar essas decisões.
-
-## Como esperamos receber sua solução
-
-Esta etapa é eliminatória, e por isso esperamos que o código reflita essa importância.
-
-Se tiver algum imprevisto, dúvida ou problema, por favor entre em contato com a gente, estamos aqui para ajudar.
-
-Nos envie o link de um repo público com a sua solução.
