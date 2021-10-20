@@ -15,8 +15,10 @@ class ValidaSenhaController(val validaSenhaService: ValidaSenhaService) {
     @PostMapping
     fun valida(@Valid @RequestBody validaSenhaRequest: ValidaSenhaRequest): ResponseEntity<ValidaSenhaResponse> {
         val senhaValidada = validaSenhaService.valida(validaSenhaRequest.senha)
+        //Retorna um json com isValid=false e a mensagem de erro conforme o problema.
         if (!senhaValidada.isValid) return ResponseEntity.badRequest().body(senhaValidada)
 
+        //Retorna um json com isValid=true caso a senha passe pela validação (ver as regras no arquivo README)
         return ResponseEntity.ok(senhaValidada)
     }
 }

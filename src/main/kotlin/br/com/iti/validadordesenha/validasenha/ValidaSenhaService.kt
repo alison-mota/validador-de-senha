@@ -12,6 +12,7 @@ class ValidaSenhaService {
 
     fun valida(senha: String): ValidaSenhaResponse {
 
+        //Usa uma lista de regras em formato Regex que foi instanciada na classe RegexEMensagens para validar a String
         RegexEMensagens.listaDeValidadores.map {
             val validado = senha.matches(it.regex)
             if (!validado)
