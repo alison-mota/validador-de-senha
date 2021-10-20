@@ -1,4 +1,4 @@
-package br.com.iti.validadordesenha.compartilhado.swagger
+package br.com.iti.validadordesenha.compartilhado.configuracoes
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
